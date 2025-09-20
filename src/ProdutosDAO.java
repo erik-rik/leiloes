@@ -66,7 +66,6 @@ public class ProdutosDAO {
             try {
                 if(resultset != null) resultset.close();
                 if(prep != null) prep.close();
-                if(conn != null) conn.close();
             } catch(Exception e){
                 e.printStackTrace();
             }
