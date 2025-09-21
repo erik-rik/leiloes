@@ -139,10 +139,18 @@ public class listagemVIEW extends javax.swing.JFrame {
     private void btnVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenderActionPerformed
         String id = id_produto_venda.getText();
         
-        ProdutosDAO produtosdao = new ProdutosDAO();
+        if (id.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, preencha o campo!", "Campo obrigatório", JOptionPane.WARNING_MESSAGE);
+            return;
+        } else try {
+            ProdutosDAO produtosdao = new ProdutosDAO();
         
-        //produtosdao.venderProduto(Integer.parseInt(id));
-        listarProdutos();
+            produtosdao.venderProduto(Integer.parseInt(id));
+        
+            listarProdutos();
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Digite um ID válido!");
+        }
     }//GEN-LAST:event_btnVenderActionPerformed
 
     private void btnVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendasActionPerformed
