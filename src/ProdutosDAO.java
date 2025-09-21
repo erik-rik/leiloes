@@ -90,12 +90,41 @@ public class ProdutosDAO {
         } catch(Exception e){
             JOptionPane.showMessageDialog(null, "Erro ao vender produto: " + e.getMessage());
         } finally {
-        try {
-            if (prep != null) prep.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+            try {
+                if (prep != null) prep.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
+    
+    public ArrayList<ProdutosDTO> listarProdutosVendidos(){
+        ArrayList<ProdutosDTO> listagem = new ArrayList<>();
+        try {
+            String sql = "Select * FROM produtos where status LIKE 'Ven%'";
+            prep = conn.prepareStatement(sql);
+            resultset = prep.executeQuery();
+            
+            while(resultset.next()){
+                ProdutosDTO produto = new ProdutosDTO();
+                produto.setId(resultset.getInt("id"));
+                produto.setNome(resultset.getString("nome"));
+                produto.setValor(resultset.getInt("valor"));
+                produto.setStatus(resultset.getString("status"));
+
+                listagem.add(produto);
+            }
+            
+        } catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Erro ao vender produto: " + e.getMessage());
+        } finally {
+            try {
+                if (prep != null) prep.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return listagem;
     }
 }
 
